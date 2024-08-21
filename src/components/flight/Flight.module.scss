@@ -1,0 +1,25 @@
+.flight {
+  display: flex;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.flight__date,
+.flight__duration,
+.flight__stops {
+  width: 140px;
+  height: 39px;
+}
+
+.grey_text {
+  color: #a0b0b9;
+  font-size: 12px;
+}
+
+.flight:not(:first-child) {
+  margin-top: 10px;
+}
+
+.flight > div:not(:last-child) {
+  margin-right: 20px;
+}

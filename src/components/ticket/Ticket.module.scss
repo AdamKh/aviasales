@@ -5,4 +5,24 @@
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px;
   margin-bottom: 20px;
+  padding: 20px;
+}
+
+.flex_wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ticket__price {
+  color: #2196f3;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ticket__carrier {
+  height: 36px;
+}
+
+.ticket__segments {
+  margin-top: 20px;
 }
