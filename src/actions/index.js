@@ -6,7 +6,17 @@ export const VisibilityFilters = {
   SHOW_TWO_STOPS: 'SHOW_TWO_STOPS',
   SHOW_THREE_STOPS: 'SHOW_THREE_STOPS',
 }
+export const SortFilters = {
+  CHEAPEST: 'CHEAPEST',
+  FASTEST: 'FASTEST',
+  OPTIMAL: 'OPTIMAL',
+}
 
 export const setVisibilityFilter = (filter) => ({
   type: filter,
+})
+
+export const setSortFilter = (filter) => ({
+  type: 'SET_SORT_FILTER',
+  filter,
 })
