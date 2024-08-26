@@ -1,14 +1,13 @@
 import Flight from '../flight'
-import ticketCarrier from '../../img/S7.svg'
 
 import classes from './Ticket.module.scss'
 
-export default function Ticket({ price, segments }) {
+export default function Ticket({ price, segments, carrier }) {
   return (
     <li className={classes.ticket}>
       <div className={classes.flex_wrapper}>
         <p className={classes.ticket__price}>{price} ₽</p>
-        <img className={classes.ticket__carrier} src={ticketCarrier} alt="carrier logo" />
+        <img className={classes.ticket__carrier} src={`http://pics.avs.io/200/60/${carrier}.png`} alt="carrier logo" />
       </div>
       <div className={classes.ticket__segments}>
         {segments.map((flight) => (
