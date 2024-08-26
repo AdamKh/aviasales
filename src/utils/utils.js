@@ -1,6 +1,10 @@
 /* eslint-disable indent */
 import { add, format } from 'date-fns'
 
+function formatPrice(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+}
+
 function formatTimeRange(startDate, durationInMinutes) {
   const endDate = add(startDate, { minutes: durationInMinutes })
   const formattedStartTime = format(startDate, 'HH:mm')
@@ -44,4 +48,4 @@ function sortTickets(tickets, sortFilter) {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { formatTimeRange, formatDate, sortTickets }
+export { formatPrice, formatTimeRange, formatDate, sortTickets }

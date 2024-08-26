@@ -1,4 +1,5 @@
 import Flight from '../flight'
+import { formatPrice } from '../../utils'
 
 import classes from './Ticket.module.scss'
 
@@ -6,7 +7,7 @@ export default function Ticket({ price, segments, carrier }) {
   return (
     <li className={classes.ticket}>
       <div className={classes.flex_wrapper}>
-        <p className={classes.ticket__price}>{price} ₽</p>
+        <p className={classes.ticket__price}>{formatPrice(price)} ₽</p>
         <img className={classes.ticket__carrier} src={`http://pics.avs.io/200/60/${carrier}.png`} alt="carrier logo" />
       </div>
       <div className={classes.ticket__segments}>
