@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Alert } from 'antd'
 
 import Header from '../header'
 import TicketList from '../ticketList'
@@ -15,7 +16,25 @@ function main(request, ticketsList = request.tickets) {
     return <Spinner />
   }
   if (request.error) {
-    return <p>Error</p>
+    return (
+      <Alert
+        className={classes.error}
+        message={request.error.message}
+        description={request.error.description}
+        type="error"
+        showIcon
+      />
+    )
+  }
+  if (ticketsList.length === 0) {
+    return (
+      <Alert
+        className={classes.error}
+        description="Не удалось найти билеты по заданному фильтру"
+        type="info"
+        showIcon
+      />
+    )
   }
   if (request.loaded && !request.error) {
     return <TicketList ticketList={ticketsList} />

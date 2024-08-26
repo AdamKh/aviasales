@@ -15,7 +15,7 @@ const ticketsRequest = (state = initialState, action) => {
         error: false,
       }
     case 'FETCH_TICKETS_FAILURE':
-      return { ...state, loaded: true, error: true }
+      return { ...state, loaded: true, error: action.err }
     default:
       return state
   }
