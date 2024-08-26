@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Alert } from 'antd'
 
@@ -7,7 +7,7 @@ import TicketList from '../ticketList'
 import Filter from '../filter'
 import Tabs from '../tabs'
 import Spinner from '../spinner'
-import { setTicketsRequest, setVisibleTicketsList } from '../../store/actions/index'
+import { setTicketsRequest, setVisibleTicketsList, setSortedTicketsList } from '../../store/actions/index'
 
 import classes from './App.module.scss'
 
@@ -43,22 +43,26 @@ function main(request, ticketsList = request.tickets) {
 }
 
 export default function App() {
-  const [ticketsRequestLoaded, setTicketsRequestLoaded] = useState(false)
+  // const [ticketsRequestLoaded, setTicketsRequestLoaded] = useState(false)
   const ticketsRequest = useSelector((state) => state.ticketsRequest)
   const visibilityFilter = useSelector((state) => state.visibilityFilter)
+  const sortedTicketsList = useSelector((state) => state.sortedTicketsList)
+  const sortFilter = useSelector((state) => state.sortFilter)
   const visibleTicketsList = useSelector((state) => state.visibleTicketsList)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(setTicketsRequest())
-    setTicketsRequestLoaded(true)
+    // setTicketsRequestLoaded(true)
   }, [dispatch])
 
   useEffect(() => {
-    if (ticketsRequestLoaded) {
-      dispatch(setVisibleTicketsList(ticketsRequest.tickets, visibilityFilter))
-    }
-  }, [dispatch, ticketsRequest, visibilityFilter, ticketsRequestLoaded])
+    dispatch(setSortedTicketsList(ticketsRequest.tickets, sortFilter))
+  }, [dispatch, sortFilter, ticketsRequest.tickets])
+
+  useEffect(() => {
+    dispatch(setVisibleTicketsList(sortedTicketsList, visibilityFilter))
+  }, [dispatch, sortedTicketsList, visibilityFilter])
 
   return (
     <div className={classes.app}>

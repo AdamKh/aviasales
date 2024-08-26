@@ -8,6 +8,7 @@ import classes from './Tabs.module.scss'
 export default function Tabs() {
   const sortFilter = useSelector((state) => state.sortFilter)
   const dispatch = useDispatch()
+
   return (
     <div className={classes.tabs}>
       <button

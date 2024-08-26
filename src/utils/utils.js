@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { add, format } from 'date-fns'
 
 function formatTimeRange(startDate, durationInMinutes) {
@@ -16,5 +17,31 @@ function formatDate(minutes) {
   return result
 }
 
+function sortTickets(tickets, sortFilter) {
+  switch (sortFilter) {
+    case 'CHEAPEST':
+      return tickets.slice().sort((a, b) => a.price - b.price)
+    case 'FASTEST':
+      return tickets.slice().sort((a, b) => {
+        const aDuration = a.segments.reduce((acc, segment) => acc + segment.duration, 0)
+        const bDuration = b.segments.reduce((acc, segment) => acc + segment.duration, 0)
+        return aDuration - bDuration
+      })
+    case 'OPTIMAL':
+      return tickets.slice().sort((a, b) => {
+        const aDuration = a.segments.reduce((acc, segment) => acc + segment.duration, 0)
+        const bDuration = b.segments.reduce((acc, segment) => acc + segment.duration, 0)
+
+        // вес цены 0.3, длительности 0.7
+        const aScore = a.price * 0.7 + aDuration * 0.3
+        const bScore = b.price * 0.7 + bDuration * 0.3
+
+        return aScore - bScore
+      })
+    default:
+      return tickets
+  }
+}
+
 // eslint-disable-next-line import/prefer-default-export
-export { formatTimeRange, formatDate }
+export { formatTimeRange, formatDate, sortTickets }

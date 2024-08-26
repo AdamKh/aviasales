@@ -48,3 +48,8 @@ export const setVisibleTicketsList = (ticketsList, filter) => ({
   type: 'SET_VISIBLE_TICKETS_LIST',
   payload: { ticketsList, filter },
 })
+
+export const setSortedTicketsList = (ticketsList, sort) => ({
+  type: 'SET_SORTED_TICKETS_LIST',
+  payload: { ticketsList, sort },
+})
