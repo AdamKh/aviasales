@@ -37,7 +37,12 @@ function main(request, ticketsList = request.tickets) {
     )
   }
   if (request.loaded && !request.error) {
-    return <TicketList ticketList={ticketsList} />
+    return (
+      <>
+        {request.stop === false && <span className={classes.loader} />}
+        <TicketList ticketList={ticketsList} />
+      </>
+    )
   }
   return 0
 }
@@ -53,7 +58,6 @@ export default function App() {
 
   useEffect(() => {
     dispatch(setTicketsRequest())
-    // setTicketsRequestLoaded(true)
   }, [dispatch])
 
   useEffect(() => {

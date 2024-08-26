@@ -8,8 +8,7 @@ const ticketsRequest = (state = initialState, action) => {
       return { ...state, loaded: false, error: false }
     case 'FETCH_TICKETS_SUCCESS':
       return {
-        ...state,
-        tickets: action.payload.tickets,
+        tickets: [...state.tickets, ...action.payload.tickets],
         stop: action.payload.stop,
         loaded: true,
         error: false,
