@@ -1,6 +1,16 @@
-import { formatDate } from '../../utils'
+import { formatTimeRange, formatDate } from '../../utils'
 
 import classes from './Flight.module.scss'
+
+function stopsCount(stops) {
+  if (stops.length === 0) {
+    return 'Без пересадок'
+  }
+  if (stops.length === 1) {
+    return '1 пересадка'
+  }
+  return `${stops.length} пересадки`
+}
 
 export default function Flight({ origin, destination, date, stops, duration }) {
   return (
@@ -9,14 +19,14 @@ export default function Flight({ origin, destination, date, stops, duration }) {
         <p className={classes.grey_text}>
           {origin} - {destination}
         </p>
-        <p>{date}</p>
+        <p>{formatTimeRange(new Date(date), duration)}</p>
       </div>
       <div className={classes.flight__duration}>
         <p className={classes.grey_text}>В пути</p>
         <p className={classes.duration}>{formatDate(duration)}</p>
       </div>
       <div className={classes.flight__stops}>
-        <p className={classes.grey_text}>{stops.length > 1 ? `${stops.length} пересадки` : '1 пересадка'}</p>
+        <p className={classes.grey_text}>{stopsCount(stops)}</p>
         <p>
           {stops.map((stop, index) =>
             index === stops.length - 1 ? (

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setVisibilityFilter, VisibilityFilters } from '../../actions/index'
+import { setVisibilityFilter, VisibilityFilters } from '../../store/actions/index'
 
 import classes from './Filter.module.scss'
 

@@ -4,7 +4,7 @@ import { SortFilters } from '../actions'
 const initialState = SortFilters.CHEAPEST
 
 // eslint-disable-next-line default-param-last
-const visibilityFilter = (state = initialState, action) => {
+const sortFilter = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_SORT_FILTER':
       return action.filter
@@ -13,4 +13,4 @@ const visibilityFilter = (state = initialState, action) => {
   }
 }
 
-export default visibilityFilter
+export default sortFilter
