@@ -26,3 +26,9 @@
 .ticket__segments {
   margin-top: 20px;
 }
+
+@media screen and (max-width: 774px) {
+  .ticket {
+    max-width: 100%;
+  }
+}

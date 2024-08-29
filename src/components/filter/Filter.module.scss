@@ -66,3 +66,11 @@ input[type='checkbox']:checked + .checkboxView {
 input[type='checkbox']:checked + .checkboxView .shape {
   opacity: 1;
 }
+
+@media screen and (max-width: 774px) {
+  .filter {
+    width: 100%;
+    position: static;
+    margin-bottom: 20px;
+  }
+}
