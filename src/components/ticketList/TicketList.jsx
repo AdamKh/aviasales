@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { Alert } from 'antd'
 
@@ -12,8 +12,11 @@ export default function TicketList({ ticketList }) {
   const sortFilter = useSelector((state) => state.sortFilter)
   const visibilityFilter = useSelector((state) => state.visibilityFilter)
 
-  const visibleTicketsList = visibleFilter(ticketList, visibilityFilter)
-  const sortedTickets = sortTickets(visibleTicketsList, sortFilter)
+  // Мемоизация фильтрации билетов
+  const visibleTicketsList = useMemo(() => visibleFilter(ticketList, visibilityFilter), [ticketList, visibilityFilter])
+
+  // Мемоизация сортировки билетов
+  const sortedTickets = useMemo(() => sortTickets(visibleTicketsList, sortFilter), [visibleTicketsList, sortFilter])
 
   return (
     <>
