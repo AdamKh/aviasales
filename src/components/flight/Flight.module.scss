@@ -27,3 +27,12 @@
 .flight > div:not(:last-child) {
   margin-right: 20px;
 }
+
+@media screen and (max-width: 400px) {
+  .flight {
+    font-size: 12px;
+  }
+  .grey_text {
+    font-size: 12px;
+  }
+}
