@@ -40,7 +40,7 @@ export default function App() {
         <Filter />
         <div className={classes.mainWrapper}>
           <Tabs />
-          {main(ticketsRequest, ticketsRequest.tickets)}
+          {main(ticketsRequest)}
         </div>
       </div>
     </div>

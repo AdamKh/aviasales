@@ -8,7 +8,7 @@ export default function Ticket({ price, segments, carrier }) {
     <li className={classes.ticket}>
       <div className={classes.flex_wrapper}>
         <p className={classes.ticket__price}>{formatPrice(price)} ₽</p>
-        <img className={classes.ticket__carrier} src={`http://pics.avs.io/200/60/${carrier}.png`} alt="carrier logo" />
+        <img className={classes.ticket__carrier} src={`https://pics.avs.io/200/60/${carrier}.png`} alt="carrier logo" />
       </div>
       <div className={classes.ticket__segments}>
         {segments.map((flight) => (
