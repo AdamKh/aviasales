@@ -1,20 +1,34 @@
 /* eslint-disable indent */
-const initialState = { tickets: [], stop: false, loaded: false, error: false }
+const initialState = {
+  tickets: [],
+  stop: false,
+  loaded: false,
+  error: null,
+}
 
 // eslint-disable-next-line default-param-last
 const ticketsRequest = (state = initialState, action) => {
   switch (action.type) {
     case 'FETCH_TICKETS_REQUEST':
-      return { ...state, loaded: false, error: false }
+      return {
+        ...state,
+        loaded: false,
+        error: null,
+      }
+    case 'FETCH_TICKETS_SUCCESS_PARTIAL':
     case 'FETCH_TICKETS_SUCCESS':
       return {
-        tickets: [...state.tickets, ...action.payload.tickets],
-        stop: action.payload.stop,
+        tickets: state.tickets.concat(action.payload),
         loaded: true,
-        error: false,
+        stop: action.type === 'FETCH_TICKETS_SUCCESS',
+        error: null,
       }
     case 'FETCH_TICKETS_FAILURE':
-      return { ...state, loaded: true, error: action.err }
+      return {
+        ...state,
+        loaded: true,
+        error: action.err,
+      }
     default:
       return state
   }

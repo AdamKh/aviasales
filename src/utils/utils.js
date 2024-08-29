@@ -22,30 +22,47 @@ function formatDate(minutes) {
 }
 
 function sortTickets(tickets, sortFilter) {
+  const getDuration = (ticket) => ticket.segments.reduce((acc, segment) => acc + segment.duration, 0)
+
   switch (sortFilter) {
     case 'CHEAPEST':
-      return tickets.slice().sort((a, b) => a.price - b.price)
-    case 'FASTEST':
-      return tickets.slice().sort((a, b) => {
-        const aDuration = a.segments.reduce((acc, segment) => acc + segment.duration, 0)
-        const bDuration = b.segments.reduce((acc, segment) => acc + segment.duration, 0)
-        return aDuration - bDuration
-      })
-    case 'OPTIMAL':
-      return tickets.slice().sort((a, b) => {
-        const aDuration = a.segments.reduce((acc, segment) => acc + segment.duration, 0)
-        const bDuration = b.segments.reduce((acc, segment) => acc + segment.duration, 0)
+      return tickets.toSorted((a, b) => a.price - b.price)
 
-        // вес цены 0.3, длительности 0.7
+    case 'FASTEST':
+      return tickets.toSorted((a, b) => getDuration(a) - getDuration(b))
+
+    case 'OPTIMAL':
+      return tickets.toSorted((a, b) => {
+        const aDuration = getDuration(a)
+        const bDuration = getDuration(b)
+
         const aScore = a.price * 0.7 + aDuration * 0.3
         const bScore = b.price * 0.7 + bDuration * 0.3
 
         return aScore - bScore
       })
+
     default:
       return tickets
   }
 }
 
+function visibleFilter(ticketsList, filter) {
+  if (filter.includes('SHOW_ALL')) {
+    return ticketsList
+  }
+
+  const filterConditions = {
+    SHOW_ONE_STOPS: (segment) => segment.stops.length === 1,
+    SHOW_TWO_STOPS: (segment) => segment.stops.length === 2,
+    SHOW_THREE_STOPS: (segment) => segment.stops.length === 3,
+    SHOW_WITHOUT_STOPS: (segment) => segment.stops.length === 0,
+  }
+
+  const activeFilters = filter.map((f) => filterConditions[f]).filter(Boolean)
+
+  return ticketsList.filter((ticket) => activeFilters.some((check) => ticket.segments.every(check)))
+}
+
 // eslint-disable-next-line import/prefer-default-export
-export { formatPrice, formatTimeRange, formatDate, sortTickets }
+export { formatPrice, formatTimeRange, formatDate, sortTickets, visibleFilter }

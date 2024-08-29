@@ -17,12 +17,12 @@ const updateAllState = (state) => {
 
 // eslint-disable-next-line default-param-last
 const visibilityFilter = (state = initialState, action) => {
-  let newState = [...state] // Создаем копию состояния в виде массива
+  let newState = [...state]
 
   switch (action.type) {
     case 'SHOW_ALL': {
       if (newState.includes('SHOW_ALL')) {
-        return [] // Возвращаем новый пустой массив
+        return []
       }
       return ['SHOW_ALL', 'SHOW_WITHOUT_STOPS', 'SHOW_ONE_STOPS', 'SHOW_TWO_STOPS', 'SHOW_THREE_STOPS']
     }

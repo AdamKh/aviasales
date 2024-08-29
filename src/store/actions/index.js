@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 // eslint-disable-next-line import/prefer-default-export
 import AviasalesService from '../../services/aviasalesServices'
 
@@ -32,24 +33,33 @@ export const setSortFilter = (filter) => ({
   filter,
 })
 
-export const setTicketsRequest = () => (dispatch) => {
+export const setTicketsRequest = () => async (dispatch) => {
   dispatch({ type: 'FETCH_TICKETS_REQUEST' })
-  aviasalesService
-    .getTicketsList()
-    .then((res) => {
-      dispatch({ type: 'FETCH_TICKETS_SUCCESS', payload: res })
-    })
-    .catch((err) => {
-      dispatch({ type: 'FETCH_TICKETS_FAILURE', err })
-    })
+
+  const fetchAllTickets = async () => {
+    try {
+      const res = await aviasalesService.getTicketsList()
+
+      // Отправляем частично загруженные данные в стор
+      dispatch({ type: 'FETCH_TICKETS_SUCCESS_PARTIAL', payload: res.tickets })
+
+      // Если есть еще билеты, продолжаем загружать
+      if (!res.stop) {
+        setTimeout(() => fetchAllTickets(), 1000)
+      } else {
+        // Все билеты загружены
+        dispatch({ type: 'FETCH_TICKETS_SUCCESS', payload: res.tickets })
+      }
+    } catch (err) {
+      setTimeout(() => fetchAllTickets(), 1000)
+    }
+  }
+
+  // Начинаем рекурсивную загрузку
+  fetchAllTickets()
 }
 
 export const setVisibleTicketsList = (ticketsList, filter) => ({
   type: 'SET_VISIBLE_TICKETS_LIST',
   payload: { ticketsList, filter },
-})
-
-export const setSortedTicketsList = (ticketsList, sort) => ({
-  type: 'SET_SORTED_TICKETS_LIST',
-  payload: { ticketsList, sort },
 })
