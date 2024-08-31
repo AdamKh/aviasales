@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { add, format } from 'date-fns'
 
 function formatPrice(price) {
@@ -64,5 +63,4 @@ function visibleFilter(ticketsList, filter) {
   return ticketsList.filter((ticket) => activeFilters.some((check) => ticket.segments.every(check)))
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export { formatPrice, formatTimeRange, formatDate, sortTickets, visibleFilter }

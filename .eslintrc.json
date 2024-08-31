@@ -28,7 +28,8 @@
   },
   "plugins": ["react", "prettier", "import", "react-hooks", "jsx-a11y"],
   "rules": {
-    "indent": ["error", 2],
+    "default-param-last": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "object-curly-newline": ["off"],
     "prettier/prettier": ["error", { "endOfLine": "lf" }],
     "max-len": ["error", { "code": 120 }],

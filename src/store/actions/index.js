@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-// eslint-disable-next-line import/prefer-default-export
 import AviasalesService from '../../services/aviasalesServices'
 
 const aviasalesService = new AviasalesService()
@@ -45,21 +43,20 @@ export const setTicketsRequest = () => async (dispatch) => {
 
       // Если есть еще билеты, продолжаем загружать
       if (!res.stop) {
-        setTimeout(() => fetchAllTickets(), 1000)
+        fetchAllTickets()
       } else {
         // Все билеты загружены
         dispatch({ type: 'FETCH_TICKETS_SUCCESS', payload: res.tickets })
       }
     } catch (err) {
-      setTimeout(() => fetchAllTickets(), 1000)
+      if (err.message.includes(500)) {
+        fetchAllTickets()
+      } else {
+        dispatch({ type: 'FETCH_TICKETS_FAILURE', err: err.message })
+      }
     }
   }
 
   // Начинаем рекурсивную загрузку
   fetchAllTickets()
 }
-
-export const setVisibleTicketsList = (ticketsList, filter) => ({
-  type: 'SET_VISIBLE_TICKETS_LIST',
-  payload: { ticketsList, filter },
-})

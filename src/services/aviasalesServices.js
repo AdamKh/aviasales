@@ -19,9 +19,11 @@ export default class AviasalesService {
     }
 
     const res = await fetch(`${this.#apiBase}${url}`, options)
+
     if (!res.ok) {
-      throw new Error(`Не удалось получить ${url}, статус: ${res.status}`)
+      throw new Error(`Ошибка ${res.status}`)
     }
+
     return res.json()
   }
 

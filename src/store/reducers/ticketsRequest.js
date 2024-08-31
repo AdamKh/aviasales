@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 const initialState = {
   tickets: [],
   stop: false,
@@ -6,7 +5,6 @@ const initialState = {
   error: null,
 }
 
-// eslint-disable-next-line default-param-last
 const ticketsRequest = (state = initialState, action) => {
   switch (action.type) {
     case 'FETCH_TICKETS_REQUEST':

@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 const initialState = ['SHOW_ALL', 'SHOW_WITHOUT_STOPS', 'SHOW_ONE_STOPS', 'SHOW_TWO_STOPS', 'SHOW_THREE_STOPS']
 
 // Вспомогательная функция для обновления состояния "SHOW_ALL"
@@ -15,7 +14,6 @@ const updateAllState = (state) => {
   return updatedState
 }
 
-// eslint-disable-next-line default-param-last
 const visibilityFilter = (state = initialState, action) => {
   let newState = [...state]
 

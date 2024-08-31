@@ -6,24 +6,10 @@ import TicketList from '../ticketList'
 import Filter from '../filter'
 import Tabs from '../tabs'
 import Spinner from '../spinner'
+import ErrorHandler from '../error/error-handler'
 import { setTicketsRequest } from '../../store/actions/index'
 
 import classes from './App.module.scss'
-
-function main(request, ticketsList = request.tickets) {
-  if (!request.loaded) {
-    return <Spinner />
-  }
-  if (request.loaded) {
-    return (
-      <>
-        {request.stop === false && <span className={classes.loader} />}
-        <TicketList ticketList={ticketsList} />
-      </>
-    )
-  }
-  return 0
-}
 
 export default function App() {
   const ticketsRequest = useSelector((state) => state.ticketsRequest)
@@ -40,7 +26,15 @@ export default function App() {
         <Filter />
         <div className={classes.mainWrapper}>
           <Tabs />
-          {main(ticketsRequest)}
+          {ticketsRequest.error ? (
+            <ErrorHandler errorMessage={ticketsRequest.error} />
+          ) : (
+            <>
+              {ticketsRequest.stop === false && <span className={classes.loader} />}
+              {!ticketsRequest.loaded && <Spinner />}
+              {ticketsRequest.loaded && <TicketList ticketList={ticketsRequest.tickets} />}
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -31,7 +31,12 @@ export default function TicketList({ ticketList }) {
       <ul className={classes.ticketList}>
         {sortedTickets.slice(0, visibleTicketsCount).map((ticket) => (
           <Ticket
-            key={Math.random().toString(36).slice(2)}
+            key={
+              ticket.id ||
+              `${ticket.carrier}
+              -${ticket.price}
+              -${ticket.segments.map((segment) => segment.stops).join('-')}`
+            }
             price={ticket.price}
             carrier={ticket.carrier}
             segments={ticket.segments}
@@ -41,7 +46,7 @@ export default function TicketList({ ticketList }) {
         <button
           type="button"
           className={classes.button}
-          onClick={() => setVisibleTicketsCount(visibleTicketsCount + 5)}
+          onClick={() => setVisibleTicketsCount((prevCount) => prevCount + 5)}
         >
           Показать еще 5 билетов!
         </button>
